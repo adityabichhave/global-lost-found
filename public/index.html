@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Global Lost & Found</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+<!-- NAVBAR -->
+<header class="bg-white border-b">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold">🔍 Global Lost & Found</h1>
+      <p class="text-sm text-slate-500">Reconnect people with what matters</p>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative h-[70vh] flex items-center justify-center text-center">
+  <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1"
+       class="absolute inset-0 w-full h-full object-cover brightness-50" />
+
+  <div class="relative z-10 max-w-2xl px-6">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+      Lost something? Found something?
+    </h1>
+    <p class="text-white/90 mb-8">
+      Let’s reunite people with their belongings — safely and globally.
+    </p>
+
+    <div class="flex justify-center gap-4">
+      <button onclick="openLostForm()"
+        class="px-6 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition">
+        Report Lost Item
+      </button>
+      <button onclick="openFoundForm()"
+        class="px-6 py-3 rounded-full bg-white/90 text-slate-800 hover:bg-white transition">
+        Report Found Item
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<main class="max-w-7xl mx-auto px-6 py-10">
+
+  <!-- TABS -->
+<div class="flex justify-center mb-10">
+  <div class="bg-slate-200 rounded-full p-1 flex shadow-inner">
+    <button id="foundTab"
+      onclick="showFound()"
+      class="px-6 py-2 rounded-full bg-blue-600 text-white transition">
+      Found Items
+    </button>
+
+    <button id="lostTab"
+      onclick="showLost()"
+      class="px-6 py-2 rounded-full text-slate-700 transition">
+      Lost Items
+    </button>
+  </div>
+</div>
+
+
+  <!-- FOUND ITEMS -->
+  <section id="foundSection">
+    <div id="foundList"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    </div>
+  </section>
+
+  <!-- LOST ITEMS -->
+  <section id="lostSection" class="hidden">
+    <div id="lostList"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    </div>
+  </section>
+
+</main>
+
+<!-- MODAL -->
+
+<!-- LOST MODAL -->
+<div id="lostModal"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm">
+
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 animate-fadeIn">
+
+    <h2 class="text-xl font-semibold mb-4">Report Lost Item</h2>
+
+    <div class="space-y-3">
+      <input id="l_name" class="w-full border rounded-lg px-4 py-2" placeholder="What did you lose?" />
+      <input id="f_color" class="w-full border rounded-lg px-4 py-2" placeholder="Color" />
+     
+      <input id="l_location" class="w-full border rounded-lg px-4 py-2" placeholder="Where did you lose it?" />
+      <input id="l_date" type="date" class="w-full border rounded-lg px-4 py-2" />
+      <input id="l_contact" class="w-full border rounded-lg px-4 py-2" placeholder="WhatsApp number (optional)" />
+      <input
+  id="f_image"
+  type="file"
+  accept="image/*"
+  class="w-full border rounded-lg px-4 py-2"
+/>
+<img
+  id="l_preview"
+  class="hidden mt-3 w-full h-40 object-cover rounded-lg border"
+/>
+    </div>
+
+    <div class="flex gap-3 mt-6">
+      <button onclick="submitLost()"
+        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
+        Submit
+      </button>
+
+      <button onclick="closeModals()"
+        class="flex-1 bg-slate-200 hover:bg-slate-300 py-2 rounded-lg">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- FOUND MODAL -->
+<div id="foundModal"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm">
+
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 animate-fadeIn">
+
+    <h2 class="text-xl font-semibold mb-4">Report Found Item</h2>
+
+    <div class="space-y-3">
+      <input id="f_type" class="w-full border rounded-lg px-4 py-2" placeholder="Item type (wallet, phone…)" />
+      <input id="f_color" class="w-full border rounded-lg px-4 py-2" placeholder="Color" />
+      <input id="f_location" class="w-full border rounded-lg px-4 py-2" placeholder="Where did you find it?" />
+      <input id="f_date" type="date" class="w-full border rounded-lg px-4 py-2" />
+<input
+  id="l_image"
+  type="file"
+  accept="image/*"
+  class="w-full border rounded-lg px-4 py-2"
+/>
+<img
+  id="f_preview"
+  class="hidden mt-3 w-full h-40 object-cover rounded-lg border"
+/>
+
+      <input id="f_contact" class="w-full border rounded-lg px-4 py-2" placeholder="WhatsApp number (optional)" />
+    </div>
+
+    <div class="flex gap-3 mt-6">
+      <button onclick="submitFound()"
+        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">
+        Submit
+      </button>
+
+      <button onclick="closeModals()"
+        class="flex-1 bg-slate-200 hover:bg-slate-300 py-2 rounded-lg">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+<!-- CHAT MODAL -->
+<div id="chatModal"
+  class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl w-full max-w-md flex flex-col">
+
+    <div class="flex justify-between items-center px-4 py-3 border-b">
+      <span class="font-semibold">Secure Chat</span>
+      <button onclick="closeChat()">✖</button>
+    </div>
+
+    <div id="chatMessages"
+      class="flex-1 p-4 space-y-2 overflow-y-auto">
+    </div>
+
+    <div class="p-3 border-t flex gap-2">
+      <input id="chatInput"
+        class="flex-1 border rounded-full px-4 py-2"
+        placeholder="Type a message…" />
+      <button onclick="sendMessage()"
+        class="bg-blue-600 text-white px-4 rounded-full">
+        Send
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
